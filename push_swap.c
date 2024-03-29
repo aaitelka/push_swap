@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./push_swap.h"
+#include "push_swap.h"
 
 void print_and_exit()
 {
@@ -105,6 +105,7 @@ void parse_args(t_list **stack, int ac, char **av)
 }
 
 #include <stdio.h>
+
 void print(int value)
 {
 	printf("%d\n", value);
@@ -150,6 +151,12 @@ void example(t_list *stack, t_list *stack_b)
 	ft_push(&stack, &stack_b);
 	ft_push(&stack, &stack_b);
 	display(stack, stack_b);
+
+	bool sorted = ft_is_sorted(stack);
+	if (sorted)
+		printf("Sorted\n");
+	else
+		printf("Not Sorted\n");
 }
 
 int main(int ac, char **av)
@@ -159,5 +166,6 @@ int main(int ac, char **av)
 
 	parse_args(&stack, ac, av);
 	example(stack, stack_b);
+
 	return (0);
 }
