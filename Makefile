@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 23:14:42 by aaitelka          #+#    #+#              #
-#    Updated: 2024/03/27 23:15:43 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/04/01 01:19:19 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 
 NAME	:=	push_swap
-HEAD	:=	push_swap.h
+HEAD	:=	include/push_swap.h
 
 SRCS	:=	push_swap.c \
-			push_swap_utils.c \
-			push_swap_sorting.c
+			src/push_swap_utils.c \
+			src/push_swap_sorting.c
 
 OBJS	:=	$(SRCS:%.c=%.o)
 

@@ -6,11 +6,11 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 00:21:12 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/03/28 00:21:16 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/01 01:20:33 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./push_swap.h"
+#include "../include/push_swap.h"
 
 void	ft_swap(t_list **stack)
 {

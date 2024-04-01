@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_sorting.c                                :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 23:00:02 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/03/28 23:00:04 by aaitelka         ###   ########.fr       */
+/*   Created: 2024/03/31 19:58:54 by aaitelka          #+#    #+#             */
+/*   Updated: 2024/04/01 01:20:14 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../libft.h"
 
-bool	ft_is_sorted(t_list *list)
+long	ft_atol(const char *str)
 {
-	if (!list || !list->next)
-		return (false);
-	while (list->next)
-	{
-		if ((long) list->content > (long) list->next->content)
-			return (false);
-		list = list->next;
-	}
-	return (true);
-}
+	int		sign;
+	long	result;
 
-//truevoid	ft_sort(t_list **stack_a, t_list **stack_b)
-//{
-//
-//}
+	sign = 1;
+	result = 0;
+	while (*str == 32)
+		str++;
+	if (*str == '-' && *str++)
+		sign = -1;
+	else if (*str == '+')
+		str++;
+	if (!ft_isdigit(*str) || !*str)
+		return (LONG_MAX);
+	while (ft_isdigit(*str))
+	{
+		result *= 10;
+		result += (*str++ - '0');
+	}
+	return (result * sign);
+}
