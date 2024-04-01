@@ -16,16 +16,50 @@
 # include "../libft/libft.h"
 # include <stdbool.h>
 
-long    ft_atol(const char *str);
+typedef struct s_node
+{
+	int				item;
+	int				index;
+	struct s_node	*next;
+}					t_node;
 
-void	ft_swap(t_list **stack);
+typedef struct s_stack
+{
+	int		size;
+	t_node	*collection;
+}			t_stack;
 
-void	ft_push_stack(t_list **dest, t_list **src);
+long	ft_atol(const char *str);
 
-void	ft_rotate(t_list **stack);
+void	ft_swap(t_node **stack);
 
-void	ft_reverse_rotate(t_list **stack);
+void	ft_push_stack(t_node **dest, t_node **src);
 
-bool	ft_is_sorted(t_list *list);
+void	ft_rotate(t_node **stack);
+
+void	ft_reverse_rotate(t_node **stack);
+
+void	ft_sort(t_node **stack_a, t_node **stack_b);
+
+bool	ft_is_sorted(t_node *list);
+
+/**		 --------------------
+ *		|	LINKED	LIST	|
+ *		--------------------
+ */
+
+t_node	*ft_new_node(int item);
+
+void	ft_add_front(t_node **nodes, t_node *new);
+
+void	ft_add_back(t_node **nodes, t_node *new);
+
+void	ft_del_one(t_node *node);
+
+void	ft_clear(t_node **nodes, void (*del)(void*));
+
+void	ft_iterate(t_node *node, void (*f)(int));
+
+t_node	*ft_last(t_node *node);
 
 #endif

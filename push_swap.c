@@ -19,25 +19,28 @@ void	print_and_exit(void)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_check_duplicated(t_list *stack, void *content)
+void	ft_check_duplicated(t_node *stack, long item)
 {
-	t_list	*current;
+	t_node	*current;
 
 	current = stack;
 	while (current)
 	{
-		if (*((int *)current->content) == *((int *)content))
-            print_and_exit();
+		if (current->item == item)
+			print_and_exit();
 		current = current->next;
 	}
 }
 
-long	parse_arg(char *args)
+long	*parse_arg(char *args)
 {
 	int		k;
-	long	result;
+	long	*result;
 
 	k = 0;
+	result = (long *)malloc(sizeof(int));
+	if (!result)
+		return (NULL);
 	while (args[k])
 	{
 		if (!(ft_isdigit(args[k]) || args[k] == '-' || args[k] == '+')
@@ -45,33 +48,30 @@ long	parse_arg(char *args)
 			|| args[k] == '\t')
 			print_and_exit();
 		else
-			result = ft_atol(args);
+			*result = ft_atol(args);
 		k++;
 	}
 	return (result);
 }
 
-void	ft_push(t_list **stack, char *arg)
+void	ft_push(t_stack **stack, char *arg)
 {
-	long	result;
-    int    *item;
+	long	*result;
 
 	result = parse_arg(arg);
-	if (result <= INT_MAX && result >= INT_MIN)
+	if (!result)
+		print_and_exit();
+	if (*result <= INT_MAX && *result >= INT_MIN)
 	{
-        item = (int *)malloc(sizeof(int));
-        if (!item)
-            return ;
-        *item = (int)result;
-		ft_check_duplicated(*stack, item);
-		ft_lstadd_back(stack, ft_lstnew(item));
-        item = NULL;
+		(*stack)->size++;
+		ft_check_duplicated((*stack)->collection, *result);
+		ft_add_back(&(*stack)->collection, ft_new_node(*result));
 	}
 	else
 		print_and_exit();
 }
 
-void	parse_args(t_list **stack, int ac, char **av)
+void	parse_args(t_stack **stack, int ac, char **av)
 {
 	int		i;
 	int		j;
@@ -90,60 +90,62 @@ void	parse_args(t_list **stack, int ac, char **av)
 		while (args[j])
 		{
 			ft_push(stack, args[j]);
-            free(args[j]);
+			free(args[j]);
 			j++;
 		}
-        free(args);
-        args = NULL;
+		free(args);
+		args = NULL;
 	}
 }
 
 
-void print(void *content)
+void print(int item)
 {
-	printf("%d\n", *((int *)content));
+	printf("%d\n", item);
 }
 
-void display(t_list *stack, t_list *stack_b)
+void display(t_node *stack, t_node *stack_b)
 {
 	printf("-\n");
 	printf("a\n");
 	printf("-\n");
-	ft_lstiter(stack, print);
+	ft_iterate(stack, print);
 	printf("-\n");
 	printf("b\n");
 	printf("-\n");
-	ft_lstiter(stack_b, print);
+	ft_iterate(stack_b, print);
 }
 
-void example(t_list *stack, t_list *stack_b)
+void example(t_node *stack, t_node *stack_b)
 {
 	printf("=========STACK A========\n");
 	display(stack, stack_b);
 	printf("=========SWAP A========\n");
 	ft_swap(&stack);
 	display(stack, stack_b);
-//	printf("=========PB PB PB========\n");
-//	ft_push_stack(&stack_b, &stack);
-//	ft_push_stack(&stack_b, &stack);
-//	ft_push_stack(&stack_b, &stack);
-//	display(stack, stack_b);
-//	printf("=========RA RB========\n");
-//	ft_rotate(&stack);
-//	ft_rotate(&stack_b);
-//	display(stack, stack_b);
-//	printf("=========RRA RRB========\n");
-//	ft_reverse_rotate(&stack);
-//	ft_reverse_rotate(&stack_b);
-//	display(stack, stack_b);
-//	printf("=========SWAP A========\n");
-//	ft_swap(&stack);
-//	display(stack, stack_b);
-//	printf("=========PA PA PA========\n");
-//	ft_push_stack(&stack, &stack_b);
-//	ft_push_stack(&stack, &stack_b);
-//	ft_push_stack(&stack, &stack_b);
-//	display(stack, stack_b);
+	printf("=========PB PB PB========\n");
+	ft_push_stack(&stack_b, &stack);
+	ft_push_stack(&stack_b, &stack);
+	ft_push_stack(&stack_b, &stack);
+	display(stack, stack_b);
+	printf("=========RA RB========\n");
+	ft_rotate(&stack);
+	ft_rotate(&stack_b);
+	display(stack, stack_b);
+	printf("=========RRA RRB========\n");
+	ft_reverse_rotate(&stack);
+	ft_reverse_rotate(&stack_b);
+	display(stack, stack_b);
+	printf("=========SWAP A========\n");
+	ft_swap(&stack);
+	display(stack, stack_b);
+	printf("=========PA PA PA========\n");
+	ft_push_stack(&stack, &stack_b);
+	ft_push_stack(&stack, &stack_b);
+	ft_push_stack(&stack, &stack_b);
+	display(stack, stack_b);
+
+//	ft_sort(&stack, &stack_b);
 
 	bool sorted = ft_is_sorted(stack);
 	if (sorted)
@@ -152,20 +154,38 @@ void example(t_list *stack, t_list *stack_b)
 		printf("Not Sorted\n");
 }
 
-void f(void *content)
+void f()
 {
-    free(content);
+	system("leaks push_swap");
+}
+
+
+void	ft_init(t_stack **stack)
+{
+	*stack = (t_stack *)malloc(sizeof(t_stack));
+	if (!*stack)
+		return ;
+	(*stack)->size = 0;
+	(*stack)->collection = NULL;
 }
 
 int main(int ac, char **av)
 {
-	t_list *stack = NULL;
-	t_list *stack_b = NULL;
+	atexit(f);
+	t_stack *stack = NULL;
+	t_stack *stack_b = NULL;
+
+	ft_init(&stack);
+	ft_init(&stack_b);
 
 	parse_args(&stack, ac, av);
-	example(stack, stack_b);
+	example(stack->collection, stack_b->collection);
 
-    ft_lstclear(&stack, free);
-    ft_lstclear(&stack_b, free);
+	printf("size = %d\n", stack->size);
+
+	ft_clear(&stack->collection, free);
+    ft_clear(&stack_b->collection, free);
+	free(stack);
+	free(stack_b);
 	return (0);
 }

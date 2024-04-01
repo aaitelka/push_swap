@@ -24,6 +24,7 @@ HEAD	:=	include/push_swap.h
 
 SRCS	:=	push_swap.c \
 			src/ft_atol.c \
+			src/ft_libft.c \
 			src/push_swap_utils.c \
 			src/push_swap_sorting.c
 

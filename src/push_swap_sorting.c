@@ -12,13 +12,13 @@
 
 #include "../include/push_swap.h"
 
-bool	ft_is_sorted(t_list *list)
+bool	ft_is_sorted(t_node *list)
 {
 	if (!list || !list->next)
 		return (false);
 	while (list->next)
 	{
-		if (*((int *) list->content) > *((int *) list->next->content))
+		if (list->item > list->next->item)
 			return (false);
 		list = list->next;
 	}
@@ -27,5 +27,11 @@ bool	ft_is_sorted(t_list *list)
 
 //void	ft_sort(t_list **stack_a, t_list **stack_b)
 //{
+//	if (!*stack_a || ft_is_sorted(*stack_a) || !*stack_b)
+//		return ;
+//
+//	int top;
+//
+//	top = (int)(*stack_a)->content;
 //
 //}

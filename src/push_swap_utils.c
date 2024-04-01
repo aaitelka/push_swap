@@ -12,61 +12,52 @@
 
 #include "../include/push_swap.h"
 
-void	ft_swap(t_list **stack)
+void	ft_swap(t_node **stack)
 {
-	t_list	*tmp;
+	t_node	*tmp;
 
-    if (!(*stack) || !((*stack)->next))
-        return;
-    tmp = (*stack)->next;
-    (*stack)->next = tmp->next;
-    tmp->next = *stack;
-    *stack = tmp;
+	if (!(*stack) || !((*stack)->next))
+		return ;
+	tmp = (*stack)->next;
+	(*stack)->next = tmp->next;
+	tmp->next = *stack;
+	*stack = tmp;
 }
 
-void	ft_push_stack(t_list **dest, t_list **src)
+void	ft_push_stack(t_node **dest, t_node **src)
 {
-	t_list	*tmp;
+	t_node	*tmp;
 
-	if (!(*src) || !ft_lstsize(*src))
+	if (!src || !(*src) || !dest)
 		return ;
 	tmp = *src;
 	*src = (*src)->next;
-	ft_lstadd_front(dest, ft_lstnew((tmp)->content));
+	tmp->next = NULL;
+	ft_add_front(dest, tmp);
 }
 
-void	ft_rotate(t_list **stack)
+void	ft_rotate(t_node **stack)
 {
-	t_list	*tmp;
+	t_node	*tmp;
 
-	if (!(*stack) || ft_lstsize(*stack) == 1)
+	if (!(*stack) || !((*stack)->next))
 		return ;
 	tmp = *stack;
 	*stack = (*stack)->next;
-	ft_lstadd_back(stack, ft_lstnew(tmp->content));
+	ft_last(tmp)->next = tmp;
+	tmp->next = NULL;
 }
 
-void	ft_pop_last(t_list **stack)
+void	ft_reverse_rotate(t_node **stack)
 {
-	t_list	*last;
-	t_list	*current;
+	t_node	*tmp;
 
-	if (!stack || !*stack || !(*stack)->next)
+	if (!(*stack) || !((*stack)->next))
 		return ;
-	current = *stack;
-	last = ft_lstlast(*stack);
-	while (current->next != last)
-		current = current->next;
-	current->next = NULL;
-}
-
-void	ft_reverse_rotate(t_list **stack)
-{
-	t_list	*tmp;
-
-	if (!(*stack) || ft_lstsize(*stack) == 1)
-		return ;
-	tmp = ft_lstlast(*stack);
-	ft_lstadd_front(stack, ft_lstnew(tmp->content));
-	ft_pop_last(stack);
+	tmp = (*stack);
+	while (tmp->next->next != NULL)
+		tmp = tmp->next;
+	tmp->next->next = *stack;
+	*stack = tmp->next;
+	tmp->next = NULL;
 }
