@@ -6,58 +6,38 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:05 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/03/13 21:26:07 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/03/30 20:15:20 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void print_and_exit()
+void	print_and_exit(void)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 
-long ft_atol(const char *str)
+void	ft_check_duplicated(t_list *stack, void *content)
 {
-	int sign;
-	long result;
-
-	sign = 1;
-	result = 0;
-	while (*str == 32)
-		str++;
-	if (*str == '-' && *str++)
-		sign = -1;
-	else if (*str == '+')
-		str++;
-	if (!ft_isdigit(*str) || !*str)
-		return (LONG_MAX);
-	while (ft_isdigit(*str))
-	{
-		result *= 10;
-		result += (*str++ - '0');
-	}
-	return (result * sign);
-}
-
-void ft_check_duplicated(t_list *stack, void *content)
-{
-	t_list *current;
+	t_list	*current;
 
 	current = stack;
 	while (current)
 	{
 		if (current->content == content)
-			print_and_exit();
+		{
+			ft_putstr_fd("Error\n", STDERR_FILENO);
+			exit(EXIT_FAILURE);
+		}
 		current = current->next;
 	}
 }
 
-long parse_arg(char *args)
+long	parse_arg(char *args)
 {
-	int k;
-	long result;
+	int		k;
+	long	result;
 
 	k = 0;
 	while (args[k])
@@ -73,12 +53,25 @@ long parse_arg(char *args)
 	return (result);
 }
 
-void parse_args(t_list **stack, int ac, char **av)
+void	ft_push(t_list **stack, char *arg)
 {
-	int i;
-	int j;
-	long result;
-	char **args;
+	long	result;
+
+	result = parse_arg(arg);
+	if (result <= INT_MAX && result >= INT_MIN)
+	{
+		ft_check_duplicated(*stack, (void *) result);
+		ft_lstadd_back(stack, ft_lstnew((void *) result));
+	}
+	else
+		print_and_exit();
+}
+
+void	parse_args(t_list **stack, int ac, char **av)
+{
+	int		i;
+	int		j;
+	char	**args;
 
 	i = 0;
 	args = NULL;
@@ -92,13 +85,7 @@ void parse_args(t_list **stack, int ac, char **av)
 		j = 0;
 		while (args[j])
 		{
-			result = parse_arg(args[j]);
-			if (result <= INT_MAX && result >= INT_MIN)
-			{
-				ft_check_duplicated(*stack, (void *) result);
-				ft_lstadd_back(stack, ft_lstnew((void *) result));
-			} else
-				print_and_exit();
+			ft_push(stack, args[j]);
 			j++;
 		}
 	}
@@ -131,9 +118,9 @@ void example(t_list *stack, t_list *stack_b)
 	ft_swap(&stack);
 	display(stack, stack_b);
 	printf("=========PB PB PB========\n");
-	ft_push(&stack_b, &stack);
-	ft_push(&stack_b, &stack);
-	ft_push(&stack_b, &stack);
+	ft_push_stack(&stack_b, &stack);
+	ft_push_stack(&stack_b, &stack);
+	ft_push_stack(&stack_b, &stack);
 	display(stack, stack_b);
 	printf("=========RA RB========\n");
 	ft_rotate(&stack);
@@ -147,9 +134,9 @@ void example(t_list *stack, t_list *stack_b)
 	ft_swap(&stack);
 	display(stack, stack_b);
 	printf("=========PA PA PA========\n");
-	ft_push(&stack, &stack_b);
-	ft_push(&stack, &stack_b);
-	ft_push(&stack, &stack_b);
+	ft_push_stack(&stack, &stack_b);
+	ft_push_stack(&stack, &stack_b);
+	ft_push_stack(&stack, &stack_b);
 	display(stack, stack_b);
 
 	bool sorted = ft_is_sorted(stack);
@@ -159,13 +146,21 @@ void example(t_list *stack, t_list *stack_b)
 		printf("Not Sorted\n");
 }
 
+
+void f()
+{
+	system("leaks push_swap");
+}
+
 int main(int ac, char **av)
 {
+	atexit(f);
 	t_list *stack = NULL;
 	t_list *stack_b = NULL;
 
 	parse_args(&stack, ac, av);
 	example(stack, stack_b);
 
+//	ft_lstclear(&stack, free);
 	return (0);
 }

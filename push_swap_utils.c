@@ -24,7 +24,7 @@ void	ft_swap(t_list **stack)
 	*stack = tmp;
 }
 
-void	ft_push(t_list **dest, t_list **src)
+void	ft_push_stack(t_list **dest, t_list **src)
 {
 	t_list	*tmp;
 

@@ -54,5 +54,4 @@ dkms.conf
 #mine
 .idea/
 .vscode/
-/libft
 push_swap

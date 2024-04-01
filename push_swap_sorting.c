@@ -12,9 +12,8 @@
 
 #include "push_swap.h"
 
-bool ft_is_sorted(t_list *list)
+bool	ft_is_sorted(t_list *list)
 {
-
 	if (!list || !list->next)
 		return (false);
 	while (list->next)
@@ -25,3 +24,8 @@ bool ft_is_sorted(t_list *list)
 	}
 	return (true);
 }
+
+//truevoid	ft_sort(t_list **stack_a, t_list **stack_b)
+//{
+//
+//}

@@ -18,7 +18,7 @@
 
 void	ft_swap(t_list **stack);
 
-void	ft_push(t_list **dest, t_list **src);
+void	ft_push_stack(t_list **dest, t_list **src);
 
 void	ft_rotate(t_list **stack);
 
