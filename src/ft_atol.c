@@ -6,11 +6,11 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:58:54 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/01 01:20:14 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/01 01:23:54 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../libft/libft.h"
 
 long	ft_atol(const char *str)
 {

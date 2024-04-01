@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 23:14:42 by aaitelka          #+#    #+#              #
-#    Updated: 2024/04/01 01:19:19 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/04/01 01:25:19 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ NAME	:=	push_swap
 HEAD	:=	include/push_swap.h
 
 SRCS	:=	push_swap.c \
+			src/ft_atol.c \
 			src/push_swap_utils.c \
 			src/push_swap_sorting.c
 

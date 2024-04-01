@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/01 01:20:49 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/01 01:25:01 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "../libft/libft.h"
 # include <stdbool.h>
+
+long    ft_atol(const char *str);
 
 void	ft_swap(t_list **stack);
 
