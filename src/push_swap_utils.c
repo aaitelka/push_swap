@@ -16,12 +16,12 @@ void	ft_swap(t_list **stack)
 {
 	t_list	*tmp;
 
-	if (!(*stack) || ft_lstsize(*stack) == 1)
-		return ;
-	tmp = (*stack)->next->next;
-	ft_lstadd_front(&tmp, ft_lstnew((*stack)->content));
-	ft_lstadd_front(&tmp, ft_lstnew((*stack)->next->content));
-	*stack = tmp;
+    if (!(*stack) || !((*stack)->next))
+        return;
+    tmp = (*stack)->next;
+    (*stack)->next = tmp->next;
+    tmp->next = *stack;
+    *stack = tmp;
 }
 
 void	ft_push_stack(t_list **dest, t_list **src)
@@ -44,7 +44,6 @@ void	ft_rotate(t_list **stack)
 	tmp = *stack;
 	*stack = (*stack)->next;
 	ft_lstadd_back(stack, ft_lstnew(tmp->content));
-	free(tmp);
 }
 
 void	ft_pop_last(t_list **stack)
@@ -57,11 +56,8 @@ void	ft_pop_last(t_list **stack)
 	current = *stack;
 	last = ft_lstlast(*stack);
 	while (current->next != last)
-	{
 		current = current->next;
-	}
 	current->next = NULL;
-	free(last);
 }
 
 void	ft_reverse_rotate(t_list **stack)

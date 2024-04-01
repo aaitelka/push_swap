@@ -18,14 +18,14 @@ bool	ft_is_sorted(t_list *list)
 		return (false);
 	while (list->next)
 	{
-		if ((long) list->content > (long) list->next->content)
+		if (*((int *) list->content) > *((int *) list->next->content))
 			return (false);
 		list = list->next;
 	}
 	return (true);
 }
 
-//truevoid	ft_sort(t_list **stack_a, t_list **stack_b)
+//void	ft_sort(t_list **stack_a, t_list **stack_b)
 //{
 //
 //}
