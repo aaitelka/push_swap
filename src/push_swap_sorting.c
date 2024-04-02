@@ -25,13 +25,13 @@ bool	ft_is_sorted(t_node *list)
 	return (true);
 }
 
-//void	ft_sort(t_list **stack_a, t_list **stack_b)
+//void	ft_sort(t_stack **stack_a, t_stack **stack_b)
 //{
-//	if (!*stack_a || ft_is_sorted(*stack_a) || !*stack_b)
+//	if (!*stack_a || ft_is_sorted((*stack_a)->collection) || !*stack_b)
 //		return ;
 //
-//	int top;
+//	int	top;
 //
-//	top = (int)(*stack_a)->content;
+//	top = (*stack_a)->collection->item;
 //
 //}

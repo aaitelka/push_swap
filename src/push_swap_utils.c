@@ -21,7 +21,7 @@ void	ft_swap(t_node **stack)
 	tmp = (*stack)->next;
 	(*stack)->next = tmp->next;
 	tmp->next = *stack;
-	*stack = tmp;
+	(*stack) = tmp;
 }
 
 void	ft_push_stack(t_node **dest, t_node **src)
@@ -31,9 +31,9 @@ void	ft_push_stack(t_node **dest, t_node **src)
 	if (!src || !(*src) || !dest)
 		return ;
 	tmp = *src;
-	*src = (*src)->next;
-	tmp->next = NULL;
-	ft_add_front(dest, tmp);
+	(*src) = (*src)->next;
+	tmp->next = (*dest);
+	*dest = tmp;
 }
 
 void	ft_rotate(t_node **stack)
@@ -42,8 +42,8 @@ void	ft_rotate(t_node **stack)
 
 	if (!(*stack) || !((*stack)->next))
 		return ;
-	tmp = *stack;
-	*stack = (*stack)->next;
+	tmp = (*stack);
+	(*stack) = (*stack)->next;
 	ft_last(tmp)->next = tmp;
 	tmp->next = NULL;
 }
@@ -57,7 +57,7 @@ void	ft_reverse_rotate(t_node **stack)
 	tmp = (*stack);
 	while (tmp->next->next != NULL)
 		tmp = tmp->next;
-	tmp->next->next = *stack;
-	*stack = tmp->next;
+	tmp->next->next = (*stack);
+	(*stack) = tmp->next;
 	tmp->next = NULL;
 }

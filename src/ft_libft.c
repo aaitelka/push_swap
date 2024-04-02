@@ -43,27 +43,31 @@ void	ft_add_back(t_node **nodes, t_node *new)
 		*nodes = new;
 }
 
-void	ft_clear(t_node **nodes, void (*del)(void*))
+void	ft_clear(t_stack **stack)
 {
-	t_node	*temp;
+	t_node	*current;
+	t_node	*next;
 
-	if (!nodes || !del)
+	if (!stack || !*stack)
 		return ;
-	while (*nodes)
+	current = (*stack)->collection;
+	while (current)
 	{
-		temp = (*nodes)->next;
-		*nodes = temp;
+		next = current->next;
+		free(current);
+		current = next;
 	}
-	nodes = NULL;
+	free(*stack);
+	*stack = NULL;
 }
 
-void	ft_iterate(t_node *node, void (*f)(int))
+void	ft_iterate(t_node *node, void (*f)(int, int))
 {
 	if (!node || !f)
 		return ;
 	while (node)
 	{
-		f(node->item);
+		f(node->item, node->index);
 		node = node->next;
 	}
 }

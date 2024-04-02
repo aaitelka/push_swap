@@ -39,7 +39,7 @@ void	ft_rotate(t_node **stack);
 
 void	ft_reverse_rotate(t_node **stack);
 
-void	ft_sort(t_node **stack_a, t_node **stack_b);
+void	ft_sort(t_stack **stack_a, t_stack **stack_b);
 
 bool	ft_is_sorted(t_node *list);
 
@@ -56,9 +56,9 @@ void	ft_add_back(t_node **nodes, t_node *new);
 
 void	ft_del_one(t_node *node);
 
-void	ft_clear(t_node **nodes, void (*del)(void*));
+void	ft_clear(t_stack **stack);
 
-void	ft_iterate(t_node *node, void (*f)(int));
+void	ft_iterate(t_node *node, void (*f)(int, int));
 
 t_node	*ft_last(t_node *node);
 

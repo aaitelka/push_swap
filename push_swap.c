@@ -19,28 +19,29 @@ void	print_and_exit(void)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_check_duplicated(t_node *stack, long item)
+void	ft_check_duplicated(t_node *stack, t_node *new)
 {
 	t_node	*current;
 
 	current = stack;
 	while (current)
 	{
-		if (current->item == item)
+		if (current->item == new->item)
 			print_and_exit();
+		else if (current->item < new->item)
+			new->index++;
+		else
+			current->index++;
 		current = current->next;
 	}
 }
 
-long	*parse_arg(char *args)
+long	parse_arg(char *args)
 {
 	int		k;
-	long	*result;
+	long	result;
 
 	k = 0;
-	result = (long *)malloc(sizeof(int));
-	if (!result)
-		return (NULL);
 	while (args[k])
 	{
 		if (!(ft_isdigit(args[k]) || args[k] == '-' || args[k] == '+')
@@ -48,7 +49,7 @@ long	*parse_arg(char *args)
 			|| args[k] == '\t')
 			print_and_exit();
 		else
-			*result = ft_atol(args);
+			result = ft_atol(args);
 		k++;
 	}
 	return (result);
@@ -56,16 +57,19 @@ long	*parse_arg(char *args)
 
 void	ft_push(t_stack **stack, char *arg)
 {
-	long	*result;
+	t_node	*new_item;
+	long	result;
 
 	result = parse_arg(arg);
 	if (!result)
 		print_and_exit();
-	if (*result <= INT_MAX && *result >= INT_MIN)
+	if (result <= INT_MAX && result >= INT_MIN)
 	{
+		new_item = ft_new_node((int)(result));
+		new_item->index = 1;
 		(*stack)->size++;
-		ft_check_duplicated((*stack)->collection, *result);
-		ft_add_back(&(*stack)->collection, ft_new_node(*result));
+		ft_check_duplicated((*stack)->collection, new_item);
+		ft_add_back(&(*stack)->collection, new_item);
 	}
 	else
 		print_and_exit();
@@ -99,25 +103,20 @@ void	parse_args(t_stack **stack, int ac, char **av)
 }
 
 
-void print(int item)
+void print(int item, int index)
 {
-	printf("%d\n", item);
+	printf("item = %d   |   index = %d\n", item, index);
 }
 
 void display(t_node *stack, t_node *stack_b)
 {
-	printf("-\n");
-	printf("a\n");
-	printf("-\n");
 	ft_iterate(stack, print);
-	printf("-\n");
-	printf("b\n");
-	printf("-\n");
 	ft_iterate(stack_b, print);
 }
 
 void example(t_node *stack, t_node *stack_b)
 {
+
 	printf("=========STACK A========\n");
 	display(stack, stack_b);
 	printf("=========SWAP A========\n");
@@ -183,9 +182,7 @@ int main(int ac, char **av)
 
 	printf("size = %d\n", stack->size);
 
-	ft_clear(&stack->collection, free);
-    ft_clear(&stack_b->collection, free);
-	free(stack);
-	free(stack_b);
+	ft_clear(&stack);
+	ft_clear(&stack_b);
 	return (0);
 }
