@@ -24,16 +24,18 @@ void	ft_swap(t_node **stack)
 	(*stack) = tmp;
 }
 
-void	ft_push_stack(t_node **dest, t_node **src)
+void	ft_push_stack(t_stack **dest, t_stack **src)
 {
 	t_node	*tmp;
 
-	if (!src || !(*src) || !dest)
+	if (!src || !(*src) || !*dest)
 		return ;
-	tmp = *src;
-	(*src) = (*src)->next;
-	tmp->next = (*dest);
-	*dest = tmp;
+	tmp = (*src)->collection;
+	(*src)->collection = (*src)->collection->next;
+	tmp->next = (*dest)->collection;
+	(*dest)->collection = tmp;
+	(*dest)->size++;
+	(*src)->size--;
 }
 
 void	ft_rotate(t_node **stack)

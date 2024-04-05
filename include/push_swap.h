@@ -33,7 +33,7 @@ long	ft_atol(const char *str);
 
 void	ft_swap(t_node **stack);
 
-void	ft_push_stack(t_node **dest, t_node **src);
+void	ft_push_stack(t_stack **dest, t_stack **src);
 
 void	ft_rotate(t_node **stack);
 

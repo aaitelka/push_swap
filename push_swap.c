@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:05 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/01 01:19:50 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:10:43 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,45 +114,6 @@ void display(t_node *stack, t_node *stack_b)
 	ft_iterate(stack_b, print);
 }
 
-void example(t_node *stack, t_node *stack_b)
-{
-
-	printf("=========STACK A========\n");
-	display(stack, stack_b);
-	printf("=========SWAP A========\n");
-	ft_swap(&stack);
-	display(stack, stack_b);
-	printf("=========PB PB PB========\n");
-	ft_push_stack(&stack_b, &stack);
-	ft_push_stack(&stack_b, &stack);
-	ft_push_stack(&stack_b, &stack);
-	display(stack, stack_b);
-	printf("=========RA RB========\n");
-	ft_rotate(&stack);
-	ft_rotate(&stack_b);
-	display(stack, stack_b);
-	printf("=========RRA RRB========\n");
-	ft_reverse_rotate(&stack);
-	ft_reverse_rotate(&stack_b);
-	display(stack, stack_b);
-	printf("=========SWAP A========\n");
-	ft_swap(&stack);
-	display(stack, stack_b);
-	printf("=========PA PA PA========\n");
-	ft_push_stack(&stack, &stack_b);
-	ft_push_stack(&stack, &stack_b);
-	ft_push_stack(&stack, &stack_b);
-	display(stack, stack_b);
-
-//	ft_sort(&stack, &stack_b);
-
-	bool sorted = ft_is_sorted(stack);
-	if (sorted)
-		printf("Sorted\n");
-	else
-		printf("Not Sorted\n");
-}
-
 void f()
 {
 	system("leaks push_swap");
@@ -178,9 +139,9 @@ int main(int ac, char **av)
 	ft_init(&stack_b);
 
 	parse_args(&stack, ac, av);
-	example(stack->collection, stack_b->collection);
+	ft_sort(&stack, &stack_b);
 
-	printf("size = %d\n", stack->size);
+	// printf("size = %d\n", stack->size);
 
 	ft_clear(&stack);
 	ft_clear(&stack_b);
