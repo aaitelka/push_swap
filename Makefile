@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 23:14:42 by aaitelka          #+#    #+#              #
-#    Updated: 2024/04/01 01:25:19 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/04/11 22:25:26 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ HEAD	:=	include/push_swap.h
 SRCS	:=	push_swap.c \
 			src/ft_atol.c \
 			src/ft_libft.c \
+			src/instructions.c \
 			src/push_swap_utils.c \
 			src/push_swap_sorting.c
 
@@ -43,6 +44,8 @@ $(NAME)	:	$(OBJS)
 			@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
 			$(CC) $(CFLAGS) $^ $(LIBFT)/libft.a -o $@
 
+run		: all
+		./push_swap 2 1 3 6 5
 clean	:
 			@echo "$(GREEN)==========| Cleaning... |==========...$(NC)"
 			$(MK_LBFT) clean

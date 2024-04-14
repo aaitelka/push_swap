@@ -13,14 +13,6 @@ t_node	*ft_new_node(int item)
 	return (node);
 }
 
-void	ft_add_front(t_node **nodes, t_node *new)
-{
-	if (!nodes || !new)
-		return ;
-	new->next = *nodes;
-	*nodes = new;
-}
-
 t_node	*ft_last(t_node *node)
 {
 	if (!node)
@@ -61,6 +53,7 @@ void	ft_clear(t_stack **stack)
 	*stack = NULL;
 }
 
+//TODO should remove this
 void	ft_iterate(t_node *node, void (*f)(int, int))
 {
 	if (!node || !f)

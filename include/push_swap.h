@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/01 01:25:01 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/12 22:12:11 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,23 @@ typedef struct s_node
 typedef struct s_stack
 {
 	int		size;
+	int		max;
 	t_node	*collection;
 }			t_stack;
 
 long	ft_atol(const char *str);
 
-void	ft_swap(t_node **stack);
+void	ft_swap(t_node **node, char c);
 
-void	ft_push_stack(t_stack **dest, t_stack **src);
+void 	ft_push_stack(t_stack **dest, t_stack **src, char c);
 
-void	ft_rotate(t_node **stack);
+void	ft_rotate(t_node **node, char c);
 
-void	ft_reverse_rotate(t_node **stack);
+void	ft_reverse_rotate(t_node **node, char c);
 
-void	ft_sort(t_stack **stack_a, t_stack **stack_b);
+void 	ft_sort(t_stack **stack_a, t_stack **stack_b);
 
-bool	ft_is_sorted(t_node *list);
+bool	ft_is_sorted(t_node *node);
 
 /**		 --------------------
  *		|	LINKED	LIST	|

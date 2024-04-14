@@ -14,8 +14,8 @@
 
 long	ft_atol(const char *str)
 {
-	int		sign;
-	long	result;
+	int					sign;
+	unsigned long long	result;
 
 	sign = 1;
 	result = 0;
@@ -26,7 +26,7 @@ long	ft_atol(const char *str)
 	else if (*str == '+')
 		str++;
 	if (!ft_isdigit(*str) || !*str)
-		return (LONG_MAX);
+		return (ULLONG_MAX);
 	while (ft_isdigit(*str))
 	{
 		result *= 10;
