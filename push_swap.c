@@ -6,17 +6,17 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:05 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/12 22:11:59 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:51:57 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/push_swap.h"
 #include <stdio.h>
 
-void	print_and_exit(char *str)
+
+void	print_and_exit(void)
 {
-	ft_putstr_fd("Error ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 
@@ -28,7 +28,7 @@ void	ft_check_duplicated(t_node *stack, t_node *new)
 	while (current)
 	{
 		if (current->item == new->item)
-			print_and_exit("duplicated\n");
+			print_and_exit();
 		else if (current->item < new->item)
 			new->index++;
 		else
@@ -37,6 +37,11 @@ void	ft_check_duplicated(t_node *stack, t_node *new)
 	}
 }
 
+bool	is_double_sign(char c, char nc)
+{
+	return ((c == '-' && nc == '-') || (c == '-' && nc == '+') || (c == '+' && nc == '+') || (c == '+' && nc == '-'));
+}
+	
 long	parse_arg(char *args)
 {
 	int		k;
@@ -47,8 +52,9 @@ long	parse_arg(char *args)
 	{
 		if (!(ft_isdigit(args[k]) || args[k] == '-' || args[k] == '+')
 			|| (ft_isdigit(args[k - 1]) && (args[k] == '-' || args[k] == '+'))
-			|| args[k] == '\t')
-			print_and_exit("has invalid char\n");
+			|| args[k] == '\t'
+			|| is_double_sign(args[k], args[k + 1]))
+			print_and_exit();
 		else
 			result = ft_atol(args);
 		k++;
@@ -62,8 +68,6 @@ void	ft_push(t_stack **stack, char *arg)
 	long	result;
 
 	result = parse_arg(arg);
-//	if (!result)
-//		print_and_exit("result\n");
 	if (result <= INT_MAX && result >= INT_MIN)
 	{
 		new_item = ft_new_node((int)(result));
@@ -74,43 +78,24 @@ void	ft_push(t_stack **stack, char *arg)
 		ft_add_back(&(*stack)->collection, new_item);
 	}
 	else
-		print_and_exit("number out of int range\n");
-}
-
-bool	is_empty(char *str)
-{
-	bool	empty;
-
-	empty = true;
-	while (*str)
-	{
-		if (*str != ' ')
-		{
-			empty = false;
-			break ;
-		}
-		str++;
-	}
-	return (empty);
+		print_and_exit();
 }
 
 void	parse_args(t_stack **stack, int ac, char **av)
 {
-	int		i;
 	int		j;
+	int		i;
 	char	**args;
 
 	i = 0;
 	args = NULL;
 	while (ac > 1 && ++i < ac)
 	{
-		if (is_empty(av[i]))
-			print_and_exit("xx\n");
-		if (*av[i] == '\t' || ft_strncmp(av[i], "", 1) == 0)
-			print_and_exit("x\n");
+		if (*av[i] == '\t' || *av[i] == ' ' || ft_strncmp(av[i], "", 1) == 0)
+			print_and_exit();
 		args = ft_split(av[i], ' ');
-		if (!args)
-			print_and_exit("y\n");
+		if (!*args)
+			print_and_exit();
 		j = 0;
 		while (args[j])
 		{
@@ -122,7 +107,6 @@ void	parse_args(t_stack **stack, int ac, char **av)
 		args = NULL;
 	}
 }
-
 
 void print(int item, int index)
 {

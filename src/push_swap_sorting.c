@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 23:00:02 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/14 17:10:31 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:02:41 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,36 +107,49 @@ void ft_centeralize(t_stack **stack_a, t_stack **stack_b)
 	}
 }
 
-void	ft_sort(t_stack **stack_a, t_stack **stack_b)
+int ft_find_target(t_stack **stack, int target)
 {
+	int		half;
+	t_node	*list;
+	
+	list = (*stack)->collection;
+	half = (*stack)->size / 2;
+	while (half--)
+	{
+		if (target == list->index)
+			return (1);
+		list = list->next;
+	}
+	return (0);
+}
+
+void ft_sort_all(t_stack **stack_a, t_stack **stack_b)
+{
+
 	int top_a;
 	int last_a;
-
-	if (!*stack_a || ft_is_sorted((*stack_a)->collection) || !*stack_b)
-		return ;
-	ft_centeralize(stack_a, stack_b);
-	ft_sort_three(stack_a);
 	int	top_b;
 	int	last_b;
-	while ((*stack_b)->size)
+	
+	while ((*stack_b)->size || ft_is_sorted((*stack_a)->collection))
 	{
 		top_a = (*stack_a)->collection->index;
 		last_a = ft_last((*stack_a)->collection)->index;
 		top_b = (*stack_b)->collection->index;
 		last_b = ft_last((*stack_b)->collection)->index;
 		if ((top_a - 1) == top_b)
-		{
 			ft_push_stack(stack_a, stack_b, 'a');
-		}
+		else if ((top_a - 1) == last_a)
+			ft_reverse_rotate(&(*stack_a)->collection, 'a');
 		else if ((top_a - 1) == last_b)
 		{
 			ft_reverse_rotate(&(*stack_b)->collection, 'b');
 			ft_push_stack(stack_a, stack_b, 'a');
-			// ft_rotate(&(*stack_b)->collection, 'b');
 		}
-		else if ((top_a - 1) == last_a)
+		else if (last_a == (*stack_a)->max)
 		{
-			ft_reverse_rotate(&(*stack_a)->collection, 'a');
+			ft_push_stack(stack_a, stack_b, 'a');
+			ft_rotate(&(*stack_a)->collection, 'a');
 		}
 		else if (last_b > last_a)
 		{
@@ -144,26 +157,19 @@ void	ft_sort(t_stack **stack_a, t_stack **stack_b)
 			ft_push_stack(stack_a, stack_b, 'a');
 			ft_rotate(&(*stack_a)->collection, 'a');
 		}
-		else if (last_a == (*stack_a)->max)
-		{
-			ft_push_stack(stack_a, stack_b, 'a');
-			ft_reverse_rotate(&(*stack_a)->collection, 'a');
-		}
-		else
+		else if (ft_find_target(stack_b, (top_a - 1)))
 			ft_rotate(&(*stack_b)->collection, 'b');
-	
-		// if (top_a > (*stack_a)->collection->next->index)
-		// {
-		// 	ft_rotate(&(*stack_a)->collection, 'a');
-		// }
-		// else
-		// {	
-		// }
-		// while ((*stack_b)->size / 2)
-		// {
-		// 	if ((top_a - 1) == (*stack_b)->collection->index)
-		// 		ft_push_stack(stack_a, stack_b, 'a');
-		// 	ft_rotate(&(*stack_a)->collection, 'a');
-		// }
+		else
+			ft_reverse_rotate(&(*stack_b)->collection, 'b');
 	}
+}
+
+void	ft_sort(t_stack **stack_a, t_stack **stack_b)
+{
+
+	if (!*stack_a || ft_is_sorted((*stack_a)->collection) || (*stack_a)->size < 2 || !*stack_b)
+		return ;
+	ft_centeralize(stack_a, stack_b);
+	ft_sort_three(stack_a);
+	ft_sort_all(stack_a, stack_b);
 }
