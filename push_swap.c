@@ -37,11 +37,16 @@ void	ft_check_duplicated(t_node *stack, t_node *new)
 	}
 }
 
-bool	is_double_sign(char c, char nc)
+bool	has_double_sign(char c, char nc)
 {
 	return ((c == '-' && nc == '-') || (c == '-' && nc == '+') || (c == '+' && nc == '+') || (c == '+' && nc == '-'));
 }
-	
+
+bool    only_sign(char *str)
+{
+    return (ft_strlen(str) == 1 && (*str == '+' || *str == '-'));
+}
+
 long	parse_arg(char *args)
 {
 	int		k;
@@ -53,7 +58,8 @@ long	parse_arg(char *args)
 		if (!(ft_isdigit(args[k]) || args[k] == '-' || args[k] == '+')
 			|| (ft_isdigit(args[k - 1]) && (args[k] == '-' || args[k] == '+'))
 			|| args[k] == '\t'
-			|| is_double_sign(args[k], args[k + 1]))
+            || only_sign(args)
+			|| has_double_sign(args[k], args[k + 1]))
 			print_and_exit();
 		else
 			result = ft_atol(args);
@@ -91,7 +97,7 @@ void	parse_args(t_stack **stack, int ac, char **av)
 	args = NULL;
 	while (ac > 1 && ++i < ac)
 	{
-		if (*av[i] == '\t' || *av[i] == ' ' || ft_strncmp(av[i], "", 1) == 0)
+		if (*av[i] == '\t' || ft_strncmp(av[i], "", 1) == 0)
 			print_and_exit();
 		args = ft_split(av[i], ' ');
 		if (!*args)

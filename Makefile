@@ -36,7 +36,7 @@ all		:	$(NAME)
 %o		:	%c $(HEAD)
 			$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME)	:	$(OBJS)
+$(NAME)	:	$(OBJS) $(LIBFT)/libft.a
 			@echo "$(GREEN)==========| Compiling libft... |==========$(NC)"
 			$(MK_LBFT)
 			@echo "$(GREEN)==========| Compiling libft bonus... |==========$(NC)"
