@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 21:26:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/12 22:12:11 by aaitelka         ###   ########.fr       */
+/*   Created: 2024/04/25 13:45:42 by aaitelka          #+#    #+#             */
+/*   Updated: 2024/04/25 13:45:42 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_BONUS_H
+# define CHECKER_BONUS_H
 # define TOP 1
 # define BOTTOM 0
 
-# include "../libft/libft.h"
+# include "../../lib/libft/libft.h"
 # include <stdbool.h>
 
 typedef struct s_node
 {
-	int				item;
-	int				index;
-	struct s_node	*next;
+    int				item;
+    int				index;
+    struct s_node	*next;
 }					t_node;
 
 typedef struct s_stack
 {
-	int		size;
-	int		max;
-	t_node	*set;
+    int		size;
+    int		max;
+    t_node	*set;
 }			t_stack;
 
 void	init_stack(t_stack **stack, int ac, char **av);
@@ -65,7 +65,5 @@ void	ft_del_one(t_node *node);
 void	clear_stack(t_stack **stack);
 
 t_node	*last_node(t_node *node);
-
-void	clear(t_stack **stack, void (*del)(void*));
 
 #endif

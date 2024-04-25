@@ -10,48 +10,71 @@
 #                                                                              #
 # **************************************************************************** #
 
-GREEN	:=	\033[0;32m]
-NC		:=	\033[0m]
+GREEN	:=	\033[0;32m
+NC		:=	\033[0m
 
-LIBFT	:=	./libft
-MK_LBFT :=	$(MAKE) --no-print-directory -C $(LIBFT)
+LIBFT	:=	lib/libft/libft.a
+MK_LBFT	:=	@$(MAKE) --no-print-directory -C ./lib/libft
 
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 
 NAME	:=	push_swap
-HEAD	:=	include/push_swap.h
+HEAD	:=	pushswap/include/push_swap.h
 
-SRCS	:=	push_swap.c \
-			src/ft_atoll.c \
-			src/libft.c \
-			src/parsing.c \
-			src/sorting.c \
-			src/instructions.c \
+CHECKER	:= checker
+B_HEAD	:= bonus/include/checker_bonus.h
+
+SRCS	:=	pushswap/push_swap.c \
+			pushswap/src/libft.c \
+			pushswap/src/parsing.c \
+			pushswap/src/sorting.c \
+			pushswap/src/instructions.c \
 
 OBJS	:=	$(SRCS:%.c=%.o)
 
-all		:	$(NAME)
+B_SRCS	:=	bonus/checker_bonus.c \
+			bonus/src/libft_bonus.c \
+			bonus/src/parsing_bonus.c \
+			bonus/src/sorting_bonus.c \
+			bonus/src/instructions_bonus.c \
 
-%o		:	%c
-			$(CC) $(CFLAGS) -c $< -o $@
+B_OBJS	:=	$(B_SRCS:%_bonus.c=%_bonus.o)
 
-$(NAME)	:	$(OBJS) $(HEAD) $(LIBFT)/libft.a
-			@echo "$(GREEN)==========| Compiling libft... |==========$(NC)"
-			@$(MK_LBFT)
-			@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
-			$(CC) $(CFLAGS) $^ $(LIBFT)/libft.a -o $@
+all : 			$(NAME)
 
-clean	:
-			@echo "$(GREEN)==========| Cleaning... |==========...$(NC)"
-			$(MK_LBFT) clean
-			$(RM) $(OBJS)
+%.o			:	%.c $(HEAD)
+				$(CC) $(CFLAGS) -c $< -o $@
 
-fclean	:	clean
-			@echo "$(GREEN)==========| Full Cleaning... |==========$(NC)"
-			$(MK_LBFT) fclean
-			$(RM) $(NAME)
+$(NAME): 		$(OBJS) $(LIBFT)
+				@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
+				$(CC) $(OBJS) $(LIBFT) -o $@
 
-re		:	fclean all
 
-.PHONY	:	clean
+%_bonus.o : 	%_bonus.c $(B_HEAD)
+				$(CC) $(CFLAGS) -c $< -o $@
+
+bonus		: 	$(CHECKER)
+
+$(CHECKER)	: 	$(B_OBJS) $(LIBFT)
+				@echo "$(GREEN)==========| Linking $(CHECKER) executable... |==========$(NC)"
+				$(MK_LBFT)
+				$(CC) $(B_OBJS) $(LIBFT) -o $@
+
+$(LIBFT) :
+				@echo "$(GREEN)==========| Compiling libft... |==========$(NC)"
+				$(MK_LBFT)
+				@echo "$(GREEN)==========| Compiling libft bonus... |==========$(NC)"
+				$(MK_LBFT) bonus
+
+clean		:
+				@echo "$(GREEN)==========| Cleaning... |==========...$(NC)"
+				$(MK_LBFT) clean
+				$(RM) $(OBJS) $(B_OBJS)
+
+fclean :		clean
+				@echo "$(GREEN)==========| Full Cleaning... |==========$(NC)"
+				$(MK_LBFT) fclean
+				$(RM) $(NAME) $(CHECKER)
+
+re		:		fclean all

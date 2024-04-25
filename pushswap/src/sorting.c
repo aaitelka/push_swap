@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-#include <stdio.h>
 
 bool    is_sorted(t_node *list)
 {
@@ -121,8 +120,11 @@ static void    sort_all(t_stack **s_a, t_stack **s_b)
 void    sort(t_stack **s_a, t_stack **s_b)
 {
     if (!*s_a || is_sorted((*s_a)->set) || (*s_a)->size < 2 || !*s_b)
-        return;
-
+    {
+        clear_stack(s_a);
+        clear_stack(s_b);
+        exit(EXIT_SUCCESS);
+    }
     if ((*s_a)->size == 5)
         centralize(s_a, s_b, 2);
     else

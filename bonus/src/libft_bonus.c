@@ -10,7 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "../include/checker_bonus.h"
+
+unsigned long long	ft_atoll(const char *str)
+{
+    int					sign;
+    unsigned long long	result;
+
+    sign = 1;
+    result = 0;
+    while (*str == 32)
+        str++;
+    if (*str == '-' && *str++)
+        sign = -1;
+    else if (*str == '+')
+        str++;
+    if (!ft_isdigit(*str) || !*str)
+        return (ULLONG_MAX);
+    while (ft_isdigit(*str))
+    {
+        result *= 10;
+        result += (*str++ - '0');
+    }
+    return (result * sign);
+}
 
 t_node	*create_node(int item)
 {
@@ -44,29 +67,6 @@ void	add_back(t_node **nodes, t_node *new)
 		last->next = new;
 	else
 		*nodes = new;
-}
-
-void	del_one(t_stack **stack, void (*del)(void*))
-{
-    if (!stack || !del)
-        return ;
-    del((*stack)->set);
-    free(*stack);
-}
-
-void	clear(t_stack **stack, void (*del)(void*))
-{
-    t_node 	*temp;
-
-    if (!stack || !del)
-        return ;
-    while ((*stack)->set)
-    {
-        temp = (*stack)->set->next;
-        del_one(stack, del);
-        (*stack)->set = temp;
-    }
-    *stack = NULL;
 }
 
 void	clear_stack(t_stack **stack)

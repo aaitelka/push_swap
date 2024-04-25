@@ -14,7 +14,7 @@
 
 static void	print_and_exit(void)
 {
-    ft_putstr_fd("Error\n", STDERR_FILENO);
+    write(STDERR_FILENO, "Error\n", 6);
     exit(EXIT_FAILURE);
 }
 
@@ -99,10 +99,10 @@ void	init_stack(t_stack **stack, int ac, char **av)
         while (args[j])
         {
             put_to_stack(stack, args[j]);
-//            free(args[j]);
+            free(args[j]);
             j++;
         }
-        free(*args);
-        args = NULL;
     }
+    free(args);
+    args = NULL;
 }

@@ -33,8 +33,8 @@ int main(int ac, char **av)
     create_stack(&stack_b);
     init_stack(&stack, ac, av);
 	sort(&stack, &stack_b);
-	clear(&stack, free);
-    clear(&stack_b, free);
+	clear_stack(&stack);
+    clear_stack(&stack_b);
     free(stack);
     free(stack_b);
 	return (0);

@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/31 19:58:54 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/01 01:23:54 by aaitelka         ###   ########.fr       */
+/*   Created: 2024/04/25 13:42:48 by aaitelka          #+#    #+#             */
+/*   Updated: 2024/04/25 13:42:48 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "include/checker_bonus.h"
 
-unsigned long long	ft_atoll(const char *str)
+int main(void)
 {
-	int					sign;
-	unsigned long long	result;
-
-	sign = 1;
-	result = 0;
-	while (*str == 32)
-		str++;
-	if (*str == '-' && *str++)
-		sign = -1;
-	else if (*str == '+')
-		str++;
-	if (!ft_isdigit(*str) || !*str)
-		return (ULLONG_MAX);
-	while (ft_isdigit(*str))
-	{
-		result *= 10;
-		result += (*str++ - '0');
-	}
-	return (result * sign);
+    return (0);
 }
