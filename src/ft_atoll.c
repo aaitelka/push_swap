@@ -1,13 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 00:21:12 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/08 16:02:53 by aaitelka         ###   ########.fr       */
+/*   Created: 2024/03/31 19:58:54 by aaitelka          #+#    #+#             */
+/*   Updated: 2024/04/01 01:23:54 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "../libft/libft.h"
+
+unsigned long long	ft_atoll(const char *str)
+{
+	int					sign;
+	unsigned long long	result;
+
+	sign = 1;
+	result = 0;
+	while (*str == 32)
+		str++;
+	if (*str == '-' && *str++)
+		sign = -1;
+	else if (*str == '+')
+		str++;
+	if (!ft_isdigit(*str) || !*str)
+		return (ULLONG_MAX);
+	while (ft_isdigit(*str))
+	{
+		result *= 10;
+		result += (*str++ - '0');
+	}
+	return (result * sign);
+}

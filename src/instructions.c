@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-void	ft_swap(t_node **node, char c)
+void	sx(t_node **node, char c)
 {
 	t_node	*tmp;
 
@@ -28,16 +28,16 @@ void	ft_swap(t_node **node, char c)
 		ft_putstr_fd("sb\n", 1);
 }
 
-void	ft_push_stack(t_stack **dest, t_stack **src, char c)
+void	px(t_stack **dest, t_stack **src, char c)
 {
 	t_node	*tmp;
 
 	if (!src || !(*src) || !*dest)
 		return ;
-	tmp = (*src)->collection;
-	(*src)->collection = (*src)->collection->next;
-	tmp->next = (*dest)->collection;
-	(*dest)->collection = tmp;
+	tmp = (*src)->set;
+	(*src)->set = (*src)->set->next;
+	tmp->next = (*dest)->set;
+	(*dest)->set = tmp;
 	(*dest)->size++;
 	(*src)->size--;
 	if (c == 'a')
@@ -46,7 +46,7 @@ void	ft_push_stack(t_stack **dest, t_stack **src, char c)
 		ft_putstr_fd("pb\n", 1);
 }
 
-void ft_rotate(t_node **node, char c)
+void rx(t_node **node, char c)
 {
 	t_node	*tmp;
 
@@ -54,7 +54,7 @@ void ft_rotate(t_node **node, char c)
 		return ;
 	tmp = (*node);
 	(*node) = (*node)->next;
-	ft_last(tmp)->next = tmp;
+    last_node(tmp)->next = tmp;
 	tmp->next = NULL;
 	if (c == 'a')
 		ft_putstr_fd("ra\n", 1);
@@ -62,7 +62,7 @@ void ft_rotate(t_node **node, char c)
 		ft_putstr_fd("rb\n", 1);
 }
 
-void	ft_reverse_rotate(t_node **node, char c)
+void	rrx(t_node **node, char c)
 {
 	t_node	*tmp;
 

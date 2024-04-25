@@ -10,11 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-GREEN	:=	\033[0;32m
-NC		:=	\033[0m
+GREEN	:=	\033[0;32m]
+NC		:=	\033[0m]
 
 LIBFT	:=	./libft
-MK_LBFT :=	@$(MAKE) --no-print-directory -C $(LIBFT)
+MK_LBFT :=	$(MAKE) --no-print-directory -C $(LIBFT)
 
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
@@ -23,29 +23,25 @@ NAME	:=	push_swap
 HEAD	:=	include/push_swap.h
 
 SRCS	:=	push_swap.c \
-			src/ft_atol.c \
-			src/ft_libft.c \
+			src/ft_atoll.c \
+			src/libft.c \
+			src/parsing.c \
+			src/sorting.c \
 			src/instructions.c \
-			src/push_swap_utils.c \
-			src/push_swap_sorting.c
 
 OBJS	:=	$(SRCS:%.c=%.o)
 
 all		:	$(NAME)
 
-%o		:	%c $(HEAD)
+%o		:	%c
 			$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME)	:	$(OBJS) $(LIBFT)/libft.a
+$(NAME)	:	$(OBJS) $(HEAD) $(LIBFT)/libft.a
 			@echo "$(GREEN)==========| Compiling libft... |==========$(NC)"
-			$(MK_LBFT)
-			@echo "$(GREEN)==========| Compiling libft bonus... |==========$(NC)"
-			$(MK_LBFT) bonus
+			@$(MK_LBFT)
 			@echo "$(GREEN)==========| Linking $(NAME) executable... |==========$(NC)"
 			$(CC) $(CFLAGS) $^ $(LIBFT)/libft.a -o $@
 
-run		: all
-		./push_swap 2 1 3 6 5
 clean	:
 			@echo "$(GREEN)==========| Cleaning... |==========...$(NC)"
 			$(MK_LBFT) clean

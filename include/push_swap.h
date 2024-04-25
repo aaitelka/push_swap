@@ -12,6 +12,8 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# define TOP 1
+# define BOTTOM 0
 
 # include "../libft/libft.h"
 # include <stdbool.h>
@@ -27,40 +29,43 @@ typedef struct s_stack
 {
 	int		size;
 	int		max;
-	t_node	*collection;
+	t_node	*set;
 }			t_stack;
 
-long	ft_atol(const char *str);
+void	init_stack(t_stack **stack, int ac, char **av);
 
-void	ft_swap(t_node **node, char c);
+unsigned long long	ft_atoll(const char *str);
 
-void 	ft_push_stack(t_stack **dest, t_stack **src, char c);
+/**		 --------------------
+ *		|	INSTRUCTIONS	|
+ *		--------------------
+ */
 
-void	ft_rotate(t_node **node, char c);
+void	sx(t_node **node, char c);
 
-void	ft_reverse_rotate(t_node **node, char c);
+void 	px(t_stack **dest, t_stack **src, char c);
 
-void 	ft_sort(t_stack **stack_a, t_stack **stack_b);
+void	rx(t_node **node, char c);
 
-bool	ft_is_sorted(t_node *node);
+void	rrx(t_node **node, char c);
+
+void 	sort(t_stack **s_a, t_stack **s_b);
 
 /**		 --------------------
  *		|	LINKED	LIST	|
  *		--------------------
  */
 
-t_node	*ft_new_node(int item);
+t_node	*create_node(int item);
 
-void	ft_add_front(t_node **nodes, t_node *new);
-
-void	ft_add_back(t_node **nodes, t_node *new);
+void	add_back(t_node **nodes, t_node *new);
 
 void	ft_del_one(t_node *node);
 
-void	ft_clear(t_stack **stack);
+void	clear_stack(t_stack **stack);
 
-void	ft_iterate(t_node *node, void (*f)(int, int));
+t_node	*last_node(t_node *node);
 
-t_node	*ft_last(t_node *node);
+void	clear(t_stack **stack, void (*del)(void*));
 
 #endif
