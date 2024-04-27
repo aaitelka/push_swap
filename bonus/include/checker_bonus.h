@@ -16,6 +16,10 @@
 # define TOP 1
 # define BOTTOM 0
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1337
+# endif
+
 # define PA "pa\n"
 # define PB "pb\n"
 # define RA "ra\n"
@@ -26,7 +30,6 @@
 # define RRB "rrb\n"
 
 # include "../../lib/libft/libft.h"
-# include "get_next_line.h"
 # include <stdbool.h>
 
 typedef struct s_node
@@ -82,5 +85,7 @@ void	add_back(t_node **nodes, t_node *new);
 void	clear_stack(t_stack *stack);
 
 t_node	*last_node(t_node *node);
+
+char	*get_next_line(int fd);
 
 #endif
