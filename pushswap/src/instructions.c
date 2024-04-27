@@ -46,7 +46,7 @@ void	px(t_stack **dest, t_stack **src, char c)
 		ft_putstr_fd("pb\n", 1);
 }
 
-void rx(t_node **node, char c)
+void	rx(t_node **node, char c)
 {
 	t_node	*tmp;
 
@@ -54,7 +54,7 @@ void rx(t_node **node, char c)
 		return ;
 	tmp = (*node);
 	(*node) = (*node)->next;
-    last_node(tmp)->next = tmp;
+	last_node(tmp)->next = tmp;
 	tmp->next = NULL;
 	if (c == 'a')
 		ft_putstr_fd("ra\n", 1);

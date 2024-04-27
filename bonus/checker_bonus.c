@@ -11,19 +11,7 @@
 /* ************************************************************************** */
 
 #include "include/checker_bonus.h"
-
-bool	is_sorted(t_node *list)
-{
-	if (!list || !list->next)
-		return (false);
-	while (list->next)
-	{
-		if (list->item > list->next->item)
-			return (false);
-		list = list->next;
-	}
-	return (true);
-}
+#include <string.h>
 
 int	create_stack(t_stack **stack)
 {
@@ -34,22 +22,6 @@ int	create_stack(t_stack **stack)
 	(*stack)->set = NULL;
 	return (1);
 }
-
-void	destroy(t_stack *sa, t_stack *sb, int status)
-{
-	if (sa)
-		clear_stack(sa);
-	if (sb)
-		clear_stack(sb);
-	exit(status);
-}
-
-// void leak()
-// {
-// 	system("leaks checker");
-// }
-#include <string.h>
-#include <stdio.h>
 
 bool	should_do(char *instr)
 {
@@ -112,7 +84,6 @@ void	apply_instruction(t_stack *s_a, t_stack *s_b, t_list *instr)
 
 int	main(int ac, char **av)
 {
-    // atexit(leak);
 	t_stack	*stack;
 	t_stack	*stack_b;
 

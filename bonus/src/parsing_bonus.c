@@ -12,96 +12,83 @@
 
 #include "../include/checker_bonus.h"
 
-static void print_and_exit(void)
+static void	print_and_exit(void)
 {
-    write(STDERR_FILENO, "Error\n", 6);
-    exit(EXIT_FAILURE);
+	write(STDERR_FILENO, "Error\n", 6);
+	exit(EXIT_FAILURE);
 }
 
-static int is_duplicate(t_node *stack, t_node *new)
+bool	has_double_sign(char c, char nc)
 {
-    t_node *current;
-
-    current = stack;
-    while (current)
-    {
-        if (current->item == new->item)
-            return (1);
-        else if (current->item < new->item)
-            new->index++;
-        else
-            current->index++;
-        current = current->next;
-    }
-    return (0);
+	return ((c == '-' && nc == '-') || (c == '-' && nc == '+')
+		|| (c == '+' && nc == '+') || (c == '+' && nc == '-'));
 }
 
-bool has_double_sign(char c, char nc)
+long	parse_arg(char *args)
 {
-    return ((c == '-' && nc == '-') || (c == '-' && nc == '+') || (c == '+' && nc == '+') || (c == '+' && nc == '-'));
+	int		k;
+	long	result;
+
+	k = 0;
+	while (args[k])
+	{
+		if (!(ft_isdigit(args[k]) || args[k] == '-' || args[k] == '+')
+			|| (ft_isdigit(args[k - 1]) && (args[k] == '-' || args[k] == '+'))
+			|| args[k] == '\t'
+			|| (ft_strlen(args) == 1 && (args[k] == '+' || args[k] == '-'))
+			|| has_double_sign(args[k], args[k + 1]))
+			print_and_exit();
+		else
+			result = ft_atol(args);
+		k++;
+	}
+	return (result);
 }
 
-long parse_arg(char *args)
+void	put_to_stack(t_stack **stack, char *arg)
 {
-    int k;
-    long result;
+	t_node	*new_node;
+	long	result;
 
-    k = 0;
-    while (args[k])
-    {
-        if (!(ft_isdigit(args[k]) || args[k] == '-' || args[k] == '+') || (ft_isdigit(args[k - 1]) && (args[k] == '-' || args[k] == '+')) || args[k] == '\t' || (ft_strlen(args) == 1 && (args[k] == '+' || args[k] == '-')) || has_double_sign(args[k], args[k + 1]))
-            print_and_exit();
-        else
-            result = (long)ft_atoll(args);
-        k++;
-    }
-    return (result);
+	new_node = NULL;
+	result = parse_arg(arg);
+	if (result <= INT_MAX && result >= INT_MIN)
+	{
+		new_node = create_node((int)(result));
+		new_node->index = 1;
+		(*stack)->size++;
+		(*stack)->max++;
+		if (is_duplicate((*stack)->set, new_node))
+			print_and_exit();
+		add_back(&(*stack)->set, new_node);
+	}
+	else
+		print_and_exit();
 }
 
-void put_to_stack(t_stack **stack, char *arg)
+bool	init_stack(t_stack **stack, int ac, char **av)
 {
-    t_node *new_node;
-    long result;
+	int		j;
+	int		i;
+	char	**args;
 
-    new_node = NULL;
-    result = parse_arg(arg);
-    if (result <= INT_MAX && result >= INT_MIN)
-    {
-        new_node = create_node((int)(result));
-        new_node->index = 1;
-        (*stack)->size++;
-        (*stack)->max++;
-        if (is_duplicate((*stack)->set, new_node))
-            print_and_exit();
-        add_back(&(*stack)->set, new_node);
-    }
-    else
-        print_and_exit();
-}
-
-int init_stack(t_stack **stack, int ac, char **av)
-{
-    int j;
-    int i;
-    char **args;
-
-    i = 0;
-    args = NULL;
-    while (ac > 1 && ++i < ac)
-    {
-        if (*av[i] == '\t' || ft_strncmp(av[i], "", 1) == 0)
-            print_and_exit();
-        args = ft_split(av[i], ' ');
-        if (!*args)
-            return (0);
-        j = 0;
-        while (args[j])
-        {
-            put_to_stack(stack, args[j]);
-            free(args[j]);
-            j++;
-        }
-        free(args);
-    }
-    return (1);
+	i = 0;
+	args = NULL;
+	while (ac > 1 && ++i < ac)
+	{
+		if (*av[i] == '\t' || ft_strncmp(av[i], "", 1) == 0)
+			print_and_exit();
+		args = ft_split(av[i], ' ');
+		if (!*args)
+			return (false);
+		j = 0;
+		while (args[j])
+		{
+			put_to_stack(stack, args[j]);
+			free(args[j]);
+			j++;
+		}
+		free(args);
+	}
+	return (true);
 }

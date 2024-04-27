@@ -56,3 +56,6 @@ dkms.conf
 .idea/
 .vscode/
 push_swap
+checker_Mac
+pro_checker
+push_swap_test.sh

@@ -32,9 +32,15 @@ typedef struct s_stack
 	t_node	*set;
 }			t_stack;
 
-int		init_stack(t_stack **stack, int ac, char **av);
+bool	is_duplicate(t_node *stack, t_node *new);
 
-unsigned long long	ft_atoll(const char *str);
+int		find_target(t_stack *stack, int target);
+
+void	destroy(t_stack *sa, t_stack *sb, int status);
+
+bool	init_stack(t_stack **stack, int ac, char **av);
+
+long	ft_atol(const char *str);
 
 /**		 --------------------
  *		|	INSTRUCTIONS	|
@@ -43,13 +49,13 @@ unsigned long long	ft_atoll(const char *str);
 
 void	sx(t_node **node, char c);
 
-void 	px(t_stack **dest, t_stack **src, char c);
+void	px(t_stack **dest, t_stack **src, char c);
 
 void	rx(t_node **node, char c);
 
 void	rrx(t_node **node, char c);
 
-void 	sort(t_stack *s_a, t_stack *s_b);
+void	sort(t_stack *s_a, t_stack *s_b);
 
 /**		 --------------------
  *		|	LINKED	LIST	|

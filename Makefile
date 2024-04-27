@@ -29,6 +29,7 @@ SRCS	:=	pushswap/push_swap.c \
 			pushswap/src/libft.c \
 			pushswap/src/parsing.c \
 			pushswap/src/sorting.c \
+			pushswap/src/helpers.c \
 			pushswap/src/instructions.c \
 
 OBJS	:=	$(SRCS:%.c=%.o)
@@ -36,9 +37,9 @@ OBJS	:=	$(SRCS:%.c=%.o)
 B_SRCS	:=	bonus/checker_bonus.c \
 			bonus/src/libft_bonus.c \
 			bonus/src/parsing_bonus.c \
+			bonus/src/helpers_bonus.c \
 			bonus/src/instructions_bonus.c \
-			bonus/src/get_next_line.c \
-			bonus/src/get_next_line_utils.c \
+			bonus/src/read_instructions_bonus.c \
 
 B_OBJS	:=	$(B_SRCS:%_bonus.c=%_bonus.o)
 

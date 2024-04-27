@@ -12,27 +12,27 @@
 
 #include "../include/push_swap.h"
 
-unsigned long long	ft_atoll(const char *str)
+long	ft_atol(const char *str)
 {
-    int					sign;
-    unsigned long long	result;
+	int		sign;
+	long	result;
 
-    sign = 1;
-    result = 0;
-    while (*str == 32)
-        str++;
-    if (*str == '-' && *str++)
-        sign = -1;
-    else if (*str == '+')
-        str++;
-    if (!ft_isdigit(*str) || !*str)
-        return (ULLONG_MAX);
-    while (ft_isdigit(*str))
-    {
-        result *= 10;
-        result += (*str++ - '0');
-    }
-    return (result * sign);
+	sign = 1;
+	result = 0;
+	while (*str == 32)
+		str++;
+	if (*str == '-' && *str++)
+		sign = -1;
+	else if (*str == '+')
+		str++;
+	if (!ft_isdigit(*str) || !*str)
+		return (LONG_MAX);
+	while (ft_isdigit(*str))
+	{
+		result *= 10;
+		result += (*str++ - '0');
+	}
+	return (result * sign);
 }
 
 t_node	*create_node(int item)
@@ -81,7 +81,7 @@ void	clear_stack(t_stack *stack)
 	{
 		next = current->next;
 		free(current);
-        current = NULL;
+		current = NULL;
 		current = next;
 	}
 	free(stack);

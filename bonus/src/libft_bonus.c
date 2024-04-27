@@ -12,10 +12,10 @@
 
 #include "../include/checker_bonus.h"
 
-unsigned long long ft_atoll(const char *str)
+long	ft_atol(const char *str)
 {
-	int sign;
-	unsigned long long result;
+	int		sign;
+	long	result;
 
 	sign = 1;
 	result = 0;
@@ -26,7 +26,7 @@ unsigned long long ft_atoll(const char *str)
 	else if (*str == '+')
 		str++;
 	if (!ft_isdigit(*str) || !*str)
-		return (ULLONG_MAX);
+		return (LONG_MAX);
 	while (ft_isdigit(*str))
 	{
 		result *= 10;
@@ -35,9 +35,9 @@ unsigned long long ft_atoll(const char *str)
 	return (result * sign);
 }
 
-t_node *create_node(int item)
+t_node	*create_node(int item)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	if (!node)
@@ -47,7 +47,7 @@ t_node *create_node(int item)
 	return (node);
 }
 
-t_node *last_node(t_node *node)
+t_node	*last_node(t_node *node)
 {
 	if (!node)
 		return (NULL);
@@ -56,12 +56,12 @@ t_node *last_node(t_node *node)
 	return (node);
 }
 
-void add_back(t_node **nodes, t_node *new)
+void	add_back(t_node **nodes, t_node *new)
 {
-	t_node *last;
+	t_node	*last;
 
 	if (!nodes || !new)
-		return;
+		return ;
 	last = last_node(*nodes);
 	if (last)
 		last->next = new;
@@ -69,13 +69,13 @@ void add_back(t_node **nodes, t_node *new)
 		*nodes = new;
 }
 
-void clear_stack(t_stack *stack)
+void	clear_stack(t_stack *stack)
 {
-	t_node *current;
-	t_node *next;
+	t_node	*current;
+	t_node	*next;
 
 	if (!stack)
-		return;
+		return ;
 	current = stack->set;
 	while (current)
 	{
