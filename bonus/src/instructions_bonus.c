@@ -12,7 +12,7 @@
 
 #include "../include/checker_bonus.h"
 
-void	sx(t_node **node, char c)
+void	sx(t_node **node)
 {
 	t_node	*tmp;
 
@@ -22,13 +22,9 @@ void	sx(t_node **node, char c)
 	(*node)->next = tmp->next;
 	tmp->next = *node;
 	(*node) = tmp;
-	if (c == 'a')
-		ft_putstr_fd("sa\n", 1);
-	else if (c == 'b')
-		ft_putstr_fd("sb\n", 1);
 }
 
-void	px(t_stack **dest, t_stack **src, char c)
+void	px(t_stack **dest, t_stack **src)
 {
 	t_node	*tmp;
 
@@ -40,13 +36,9 @@ void	px(t_stack **dest, t_stack **src, char c)
 	(*dest)->set = tmp;
 	(*dest)->size++;
 	(*src)->size--;
-	if (c == 'a')
-		ft_putstr_fd("pa\n", 1);
-	else if (c == 'b')
-		ft_putstr_fd("pb\n", 1);
 }
 
-void rx(t_node **node, char c)
+void	rx(t_node **node)
 {
 	t_node	*tmp;
 
@@ -54,15 +46,11 @@ void rx(t_node **node, char c)
 		return ;
 	tmp = (*node);
 	(*node) = (*node)->next;
-    last_node(tmp)->next = tmp;
+	last_node(tmp)->next = tmp;
 	tmp->next = NULL;
-	if (c == 'a')
-		ft_putstr_fd("ra\n", 1);
-	else if (c == 'b')
-		ft_putstr_fd("rb\n", 1);
 }
 
-void	rrx(t_node **node, char c)
+void	rrx(t_node **node)
 {
 	t_node	*tmp;
 
@@ -74,8 +62,4 @@ void	rrx(t_node **node, char c)
 	tmp->next->next = (*node);
 	(*node) = tmp->next;
 	tmp->next = NULL;
-	if (c == 'a')
-		ft_putstr_fd("rra\n", 1);
-	else if (c == 'b')
-		ft_putstr_fd("rrb\n", 1);
 }

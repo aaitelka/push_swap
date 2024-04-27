@@ -10,47 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/get_next_line.h"
-
-size_t	ft_strlen(char *s)
-{
-	size_t	len;
-
-	if (!s)
-		return (0);
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-char	*ft_strchr(char *s, int c)
-{
-	if (!s)
-		return (NULL);
-	while (*s && *s != (char) c)
-		s++;
-	if (*s == (char) c)
-		return ((char *)s);
-	return (NULL);
-}
-
-char	*ft_strdup(char *s1)
-{
-	size_t	len;
-	char	*str;
-
-	if (!s1 || !*s1)
-		return (NULL);
-	len = ft_strlen(s1);
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	str[len] = '\0';
-	while (len--)
-		str[len] = s1[len];
-	return (str);
-}
+#include "../include/checker_bonus.h"
 
 char	*join(char *s1, char *s2)
 {

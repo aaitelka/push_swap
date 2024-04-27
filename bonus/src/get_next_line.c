@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/get_next_line.h"
+#include "../include/checker_bonus.h"
 
 char	*read_line(char *buffer)
 {

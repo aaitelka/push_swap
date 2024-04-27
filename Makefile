@@ -6,7 +6,7 @@
 #    By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 23:14:42 by aaitelka          #+#    #+#              #
-#    Updated: 2024/04/11 22:25:26 by aaitelka         ###   ########.fr        #
+#    Updated: 2024/04/27 12:13:42 by aaitelka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,9 @@ OBJS	:=	$(SRCS:%.c=%.o)
 B_SRCS	:=	bonus/checker_bonus.c \
 			bonus/src/libft_bonus.c \
 			bonus/src/parsing_bonus.c \
-			bonus/src/sorting_bonus.c \
 			bonus/src/instructions_bonus.c \
+			bonus/src/get_next_line.c \
+			bonus/src/get_next_line_utils.c \
 
 B_OBJS	:=	$(B_SRCS:%_bonus.c=%_bonus.o)
 
@@ -58,7 +59,6 @@ bonus		: 	$(CHECKER)
 
 $(CHECKER)	: 	$(B_OBJS) $(LIBFT)
 				@echo "$(GREEN)==========| Linking $(CHECKER) executable... |==========$(NC)"
-				$(MK_LBFT)
 				$(CC) $(B_OBJS) $(LIBFT) -o $@
 
 $(LIBFT) :

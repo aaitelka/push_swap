@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_libft.c                                         :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:37:11 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/25 01:37:11 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:30:03 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void	add_back(t_node **nodes, t_node *new)
 		*nodes = new;
 }
 
-void	clear_stack(t_stack **stack)
+void	clear_stack(t_stack *stack)
 {
 	t_node	*current;
 	t_node	*next;
 
-	if (!stack || !*stack)
+	if (!stack)
 		return ;
-	current = (*stack)->set;
+	current = stack->set;
 	while (current)
 	{
 		next = current->next;
@@ -84,6 +84,6 @@ void	clear_stack(t_stack **stack)
         current = NULL;
 		current = next;
 	}
-	free(*stack);
-	*stack = NULL;
+	free(stack);
+	stack = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/12 22:12:11 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:43:10 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_stack
 	t_node	*set;
 }			t_stack;
 
-void	init_stack(t_stack **stack, int ac, char **av);
+int		init_stack(t_stack **stack, int ac, char **av);
 
 unsigned long long	ft_atoll(const char *str);
 
@@ -49,7 +49,7 @@ void	rx(t_node **node, char c);
 
 void	rrx(t_node **node, char c);
 
-void 	sort(t_stack **s_a, t_stack **s_b);
+void 	sort(t_stack *s_a, t_stack *s_b);
 
 /**		 --------------------
  *		|	LINKED	LIST	|
@@ -60,9 +60,7 @@ t_node	*create_node(int item);
 
 void	add_back(t_node **nodes, t_node *new);
 
-void	ft_del_one(t_node *node);
-
-void	clear_stack(t_stack **stack);
+void	clear_stack(t_stack *stack);
 
 t_node	*last_node(t_node *node);
 

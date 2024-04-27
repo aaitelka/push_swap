@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_libft.c                                         :+:      :+:    :+:   */
+/*   libft_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:37:11 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/25 01:37:11 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/27 09:26:58 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/checker_bonus.h"
 
-unsigned long long	ft_atoll(const char *str)
+unsigned long long ft_atoll(const char *str)
 {
-    int					sign;
-    unsigned long long	result;
+	int sign;
+	unsigned long long result;
 
-    sign = 1;
-    result = 0;
-    while (*str == 32)
-        str++;
-    if (*str == '-' && *str++)
-        sign = -1;
-    else if (*str == '+')
-        str++;
-    if (!ft_isdigit(*str) || !*str)
-        return (ULLONG_MAX);
-    while (ft_isdigit(*str))
-    {
-        result *= 10;
-        result += (*str++ - '0');
-    }
-    return (result * sign);
+	sign = 1;
+	result = 0;
+	while (*str == 32)
+		str++;
+	if (*str == '-' && *str++)
+		sign = -1;
+	else if (*str == '+')
+		str++;
+	if (!ft_isdigit(*str) || !*str)
+		return (ULLONG_MAX);
+	while (ft_isdigit(*str))
+	{
+		result *= 10;
+		result += (*str++ - '0');
+	}
+	return (result * sign);
 }
 
-t_node	*create_node(int item)
+t_node *create_node(int item)
 {
-	t_node	*node;
+	t_node *node;
 
 	node = malloc(sizeof(t_node));
 	if (!node)
@@ -47,7 +47,7 @@ t_node	*create_node(int item)
 	return (node);
 }
 
-t_node	*last_node(t_node *node)
+t_node *last_node(t_node *node)
 {
 	if (!node)
 		return (NULL);
@@ -56,12 +56,12 @@ t_node	*last_node(t_node *node)
 	return (node);
 }
 
-void	add_back(t_node **nodes, t_node *new)
+void add_back(t_node **nodes, t_node *new)
 {
-	t_node	*last;
+	t_node *last;
 
 	if (!nodes || !new)
-		return ;
+		return;
 	last = last_node(*nodes);
 	if (last)
 		last->next = new;
@@ -69,21 +69,21 @@ void	add_back(t_node **nodes, t_node *new)
 		*nodes = new;
 }
 
-void	clear_stack(t_stack **stack)
+void clear_stack(t_stack *stack)
 {
-	t_node	*current;
-	t_node	*next;
+	t_node *current;
+	t_node *next;
 
-	if (!stack || !*stack)
-		return ;
-	current = (*stack)->set;
+	if (!stack)
+		return;
+	current = stack->set;
 	while (current)
 	{
 		next = current->next;
 		free(current);
-        current = NULL;
+		current = NULL;
 		current = next;
 	}
-	free(*stack);
-	*stack = NULL;
+	free(stack);
+	stack = NULL;
 }
