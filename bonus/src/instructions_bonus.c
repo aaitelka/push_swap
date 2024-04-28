@@ -28,7 +28,7 @@ void	px(t_stack **dest, t_stack **src)
 {
 	t_node	*tmp;
 
-	if (!src || !(*src) || !*dest)
+	if (!*src || !*dest || !(*src)->size)
 		return ;
 	tmp = (*src)->set;
 	(*src)->set = (*src)->set->next;

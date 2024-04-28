@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 23:00:02 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/25 19:43:06 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 12:26:32 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ bool	is_sorted(t_node *list)
 {
 	if (!list)
 		return (false);
-	if (!list->next)
-		return (true);
 	while (list->next)
 	{
 		if (list->item > list->next->item)

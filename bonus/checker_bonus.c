@@ -6,12 +6,11 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:42:48 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/27 14:22:40 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 13:07:13 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/checker_bonus.h"
-#include <string.h>
 
 int	create_stack(t_stack **stack)
 {
@@ -25,10 +24,13 @@ int	create_stack(t_stack **stack)
 
 bool	should_do(char *instr)
 {
-	return (!strcmp(instr, PA) || !strcmp(instr, PB)
-		|| !strcmp(instr, RA) || !strcmp(instr, RB)
-		|| !strcmp(instr, SA) || !strcmp(instr, SB)
-		|| !strcmp(instr, RRA) || !strcmp(instr, RRB));
+	return (!ft_strcmp(instr, PA) || !ft_strcmp(instr, PB)
+		|| !ft_strcmp(instr, RA) || !ft_strcmp(instr, RB)
+		|| !ft_strcmp(instr, RR)
+		|| !ft_strcmp(instr, SA) || !ft_strcmp(instr, SB)
+		|| !ft_strcmp(instr, SS)
+		|| !ft_strcmp(instr, RRA) || !ft_strcmp(instr, RRB)
+		|| !ft_strcmp(instr, RRR));
 }
 
 t_list	*get_instructions(void)
@@ -61,22 +63,28 @@ void	apply_instruction(t_stack *s_a, t_stack *s_b, t_list *instr)
 	current = instr;
 	while (current)
 	{
-		if (!strcmp(current->content, PA))
+		if (!ft_strcmp(current->content, PA))
 			px(&s_a, &s_b);
-		else if (!strcmp(current->content, PB))
+		else if (!ft_strcmp(current->content, PB))
 			px(&s_b, &s_a);
-		else if (!strcmp(current->content, RA))
+		else if (!ft_strcmp(current->content, RA))
 			rx(&(s_a)->set);
-		else if (!strcmp(current->content, RB))
+		else if (!ft_strcmp(current->content, RB))
 			rx(&(s_b)->set);
-		else if (!strcmp(current->content, RRA))
+		else if (!ft_strcmp(current->content, RR))
+			(rx(&(s_a)->set), rx(&(s_b)->set));
+		else if (!ft_strcmp(current->content, RRA))
 			rrx(&(s_a)->set);
-		else if (!strcmp(current->content, RRB))
+		else if (!ft_strcmp(current->content, RRB))
 			rrx(&(s_b)->set);
-		else if (!strcmp(current->content, SA))
+		else if (!ft_strcmp(current->content, RRR))
+			(rrx(&(s_a)->set), rrx(&(s_b)->set));
+		else if (!ft_strcmp(current->content, SA))
 			sx(&(s_a)->set);
-		else if (!strcmp(current->content, SB))
+		else if (!ft_strcmp(current->content, SB))
 			sx(&(s_b)->set);
+		else if (!ft_strcmp(current->content, SS))
+			(sx(&(s_a)->set), sx(&(s_b)->set));
 		current = current->next;
 	}
 	ft_lstclear(&instr, free);

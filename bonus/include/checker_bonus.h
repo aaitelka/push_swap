@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:45:42 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/27 12:19:41 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 13:02:34 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define BOTTOM 0
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1337
+#  define BUFFER_SIZE 1
 # endif
 
 # define PA "pa\n"
@@ -28,9 +28,13 @@
 # define SB "sb\n"
 # define RRA "rra\n"
 # define RRB "rrb\n"
+# define RR "rr\n"
+# define RRR "rrr\n"
+# define SS "ss\n"
 
 # include "../../lib/libft/libft.h"
 # include <stdbool.h>
+# include <string.h>
 
 typedef struct s_node
 {
@@ -51,6 +55,8 @@ bool	is_sorted(t_node *list);
 bool	is_duplicate(t_node *stack, t_node *new);
 
 int		find_target(t_stack *stack, int target);
+
+int		ft_strcmp(const char *s1, const char *s2);
 
 void	destroy(t_stack *sa, t_stack *sb, int status);
 
