@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:42:48 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 13:07:13 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 14:24:01 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,34 +58,28 @@ t_list	*get_instructions(void)
 
 void	apply_instruction(t_stack *s_a, t_stack *s_b, t_list *instr)
 {
-	t_list	*current;
+	t_list	*cur;
 
-	current = instr;
-	while (current)
+	cur = instr;
+	while (cur)
 	{
-		if (!ft_strcmp(current->content, PA))
+		if (!ft_strcmp(cur->content, PA))
 			px(&s_a, &s_b);
-		else if (!ft_strcmp(current->content, PB))
+		else if (!ft_strcmp(cur->content, PB))
 			px(&s_b, &s_a);
-		else if (!ft_strcmp(current->content, RA))
+		else if (!ft_strcmp(cur->content, RA) || !ft_strcmp(cur->content, RR))
 			rx(&(s_a)->set);
-		else if (!ft_strcmp(current->content, RB))
+		else if (!ft_strcmp(cur->content, RB) || !ft_strcmp(cur->content, RR))
 			rx(&(s_b)->set);
-		else if (!ft_strcmp(current->content, RR))
-			(rx(&(s_a)->set), rx(&(s_b)->set));
-		else if (!ft_strcmp(current->content, RRA))
+		else if (!ft_strcmp(cur->content, RRA) || !ft_strcmp(cur->content, RRR))
 			rrx(&(s_a)->set);
-		else if (!ft_strcmp(current->content, RRB))
+		else if (!ft_strcmp(cur->content, RRB) || !ft_strcmp(cur->content, RRR))
 			rrx(&(s_b)->set);
-		else if (!ft_strcmp(current->content, RRR))
-			(rrx(&(s_a)->set), rrx(&(s_b)->set));
-		else if (!ft_strcmp(current->content, SA))
+		else if (!ft_strcmp(cur->content, SA) || !ft_strcmp(cur->content, SS))
 			sx(&(s_a)->set);
-		else if (!ft_strcmp(current->content, SB))
+		else if (!ft_strcmp(cur->content, SB) || !ft_strcmp(cur->content, SS))
 			sx(&(s_b)->set);
-		else if (!ft_strcmp(current->content, SS))
-			(sx(&(s_a)->set), sx(&(s_b)->set));
-		current = current->next;
+		cur = cur->next;
 	}
 	ft_lstclear(&instr, free);
 }
@@ -104,7 +98,7 @@ int	main(int ac, char **av)
 	if (!init_stack(&stack, ac, av))
 		destroy(stack, stack_b, EXIT_FAILURE);
 	apply_instruction(stack, stack_b, get_instructions());
-	if (is_sorted(stack->set))
+	if (is_sorted(stack->set) && !stack_b->size)
 		ft_putstr_fd("OK\n", 1);
 	else
 		ft_putstr_fd("KO\n", 1);
