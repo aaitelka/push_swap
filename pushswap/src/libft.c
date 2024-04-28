@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:37:11 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/25 19:30:03 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 15:15:17 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 long	ft_atol(const char *str)
 {
-	int		sign;
-	long	result;
+	int sign;
+	long result;
 
 	sign = 1;
 	result = 0;
@@ -31,6 +31,8 @@ long	ft_atol(const char *str)
 	{
 		result *= 10;
 		result += (*str++ - '0');
+		if (result > INT_MAX || result < INT_MIN)
+			return (LONG_MAX);
 	}
 	return (result * sign);
 }
