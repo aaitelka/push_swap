@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:42:48 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 14:24:01 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:07:04 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ t_list	*get_instructions(void)
 	return (instr);
 }
 
-void	apply_instruction(t_stack *s_a, t_stack *s_b, t_list *instr)
+void apply_instruction(t_stack *s_a, t_stack *s_b, t_list *cur)
 {
-	t_list	*cur;
-
-	cur = instr;
 	while (cur)
 	{
 		if (!ft_strcmp(cur->content, PA))
@@ -75,13 +72,15 @@ void	apply_instruction(t_stack *s_a, t_stack *s_b, t_list *instr)
 			rrx(&(s_a)->set);
 		else if (!ft_strcmp(cur->content, RRB) || !ft_strcmp(cur->content, RRR))
 			rrx(&(s_b)->set);
-		else if (!ft_strcmp(cur->content, SA) || !ft_strcmp(cur->content, SS))
+		else if (!ft_strcmp(cur->content, SA))
 			sx(&(s_a)->set);
-		else if (!ft_strcmp(cur->content, SB) || !ft_strcmp(cur->content, SS))
+		else if (!ft_strcmp(cur->content, SB))
 			sx(&(s_b)->set);
+		else if (!ft_strcmp(cur->content, SS))
+			(sx(&(s_a)->set), sx(&(s_b)->set));
 		cur = cur->next;
 	}
-	ft_lstclear(&instr, free);
+	ft_lstclear(&cur, free);
 }
 
 int	main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 00:21:12 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 12:31:35 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 15:43:49 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ long	parse_arg(char *args)
 	return (result);
 }
 
-void	put_to_stack(t_stack **stack, char *arg)
+bool	put_to_stack(t_stack **stack, char *arg)
 {
 	t_node	*new_node;
 	long	result;
@@ -55,6 +55,8 @@ void	put_to_stack(t_stack **stack, char *arg)
 	if (result <= INT_MAX && result >= INT_MIN)
 	{
 		new_node = create_node((int)(result));
+		if (!new_node)
+			return (false);
 		new_node->index = 1;
 		(*stack)->size++;
 		(*stack)->max++;
@@ -64,6 +66,7 @@ void	put_to_stack(t_stack **stack, char *arg)
 	}
 	else
 		print_and_exit();
+	return (true);
 }
 
 bool	init_stack(t_stack **stack, int ac, char **av)
@@ -76,15 +79,16 @@ bool	init_stack(t_stack **stack, int ac, char **av)
 	args = NULL;
 	while (ac > 1 && ++i < ac)
 	{
-		if (*av[i] == '\t' || ft_strncmp(av[i], "", 1) == 0)
+		if (ft_strncmp(av[i], "", 1) == 0 || is_blank(av[i]))
 			print_and_exit();
 		args = ft_split(av[i], ' ');
-		if (!*args)
+		if (!args)
 			return (false);
 		j = 0;
 		while (args[j])
 		{
-			put_to_stack(stack, args[j]);
+			if (!put_to_stack(stack, args[j]))
+				return (false);
 			free(args[j]);
 			j++;
 		}

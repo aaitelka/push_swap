@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/25 19:43:10 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 15:41:56 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	destroy(t_stack *sa, t_stack *sb, int status);
 bool	init_stack(t_stack **stack, int ac, char **av);
 
 long	ft_atol(const char *str);
+
+bool	is_blank(char *str);
 
 /**		 --------------------
  *		|	INSTRUCTIONS	|

@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:07:44 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/27 19:07:46 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 15:44:42 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,17 @@ void	destroy(t_stack *sa, t_stack *sb, int status)
 	if (sb)
 		clear_stack(sb);
 	exit(status);
+}
+
+bool	is_blank(char *str)
+{
+	while (*str)
+	{
+		if (*str != ' ' && *str != '\t')
+		{
+			return (false);
+		}
+		str++;
+	}
+	return (true);
 }
