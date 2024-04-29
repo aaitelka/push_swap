@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:26:14 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 15:41:56 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:26:51 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define TOP 1
 # define BOTTOM 0
 
-# include "../../lib/libft/libft.h"
+# include "../../libft/libft.h"
 # include <stdbool.h>
 
 typedef struct s_node

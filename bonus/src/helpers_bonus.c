@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:07:44 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 15:45:00 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:48:47 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 void	destroy(t_stack *sa, t_stack *sb, int status)
 {
-	if (sa)
-		clear_stack(sa);
-	if (sb)
-		clear_stack(sb);
+	clear_stack(sa);
+	clear_stack(sb);
 	exit(status);
 }
 

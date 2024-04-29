@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:37:11 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 15:51:29 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:32:04 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ void	clear_stack(t_stack *stack)
 	{
 		next = current->next;
 		free(current);
-		current = NULL;
 		current = next;
 	}
 	free(stack);
-	stack = NULL;
 }

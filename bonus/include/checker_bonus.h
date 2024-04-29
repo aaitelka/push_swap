@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:45:42 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 15:45:18 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:24:57 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # define TOP 1
 # define BOTTOM 0
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
 
 # define PA "pa\n"
 # define PB "pb\n"
@@ -32,7 +28,7 @@
 # define RRR "rrr\n"
 # define SS "ss\n"
 
-# include "../../lib/libft/libft.h"
+# include "../../libft/libft.h"
 # include <stdbool.h>
 # include <string.h>
 
@@ -93,7 +89,5 @@ void	add_back(t_node **nodes, t_node *new);
 void	clear_stack(t_stack *stack);
 
 t_node	*last_node(t_node *node);
-
-char	*get_next_line(int fd);
 
 #endif

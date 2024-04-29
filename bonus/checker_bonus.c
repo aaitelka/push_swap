@@ -6,7 +6,7 @@
 /*   By: aaitelka <aaitelka@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:42:48 by aaitelka          #+#    #+#             */
-/*   Updated: 2024/04/28 16:07:04 by aaitelka         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:54:58 by aaitelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ t_list	*get_instructions(void)
 	return (instr);
 }
 
-void apply_instruction(t_stack *s_a, t_stack *s_b, t_list *cur)
+void	apply_instruction(t_stack *s_a, t_stack *s_b, t_list *instr)
 {
+	t_list	*cur;
+
+	cur = instr;
 	while (cur)
 	{
 		if (!ft_strcmp(cur->content, PA))
@@ -80,11 +83,11 @@ void apply_instruction(t_stack *s_a, t_stack *s_b, t_list *cur)
 			(sx(&(s_a)->set), sx(&(s_b)->set));
 		cur = cur->next;
 	}
-	ft_lstclear(&cur, free);
 }
 
 int	main(int ac, char **av)
 {
+	t_list	*instr;
 	t_stack	*stack;
 	t_stack	*stack_b;
 
@@ -96,11 +99,13 @@ int	main(int ac, char **av)
 		destroy(stack, stack_b, EXIT_FAILURE);
 	if (!init_stack(&stack, ac, av))
 		destroy(stack, stack_b, EXIT_FAILURE);
-	apply_instruction(stack, stack_b, get_instructions());
+	instr = get_instructions();
+	apply_instruction(stack, stack_b, instr);
 	if (is_sorted(stack->set) && !stack_b->size)
 		ft_putstr_fd("OK\n", 1);
 	else
 		ft_putstr_fd("KO\n", 1);
+	ft_lstclear(&instr, free);
 	destroy(stack, stack_b, EXIT_SUCCESS);
 	return (0);
 }
